@@ -6,7 +6,6 @@ class CronJobLog(models.Model):
     Keeps track of the cron jobs that ran etc. and any error
     messages if they failed.
     """
-
     code = models.CharField(max_length=64, db_index=True)
     start_time = models.DateTimeField(db_index=True)
     end_time = models.DateTimeField(db_index=True)
@@ -24,12 +23,12 @@ class CronJobLog(models.Model):
         return "%s (%s)" % (self.code, "Success" if self.is_success else "Fail")
 
     class Meta:
-    indexes = [
-        models.Index(fields=['code', 'is_success', 'ran_at_time']),
-        models.Index(fields=['code', 'start_time', 'ran_at_time']),
-        models.Index(fields=['code', 'start_time']),
-    ]
-    app_label = 'django_cron'
+        indexes = [
+            models.Index(fields=['code', 'is_success', 'ran_at_time']),
+            models.Index(fields=['code', 'start_time', 'ran_at_time']),
+            models.Index(fields=['code', 'start_time']),
+        ]
+        app_label = 'django_cron'
 
 
 class CronJobLock(models.Model):
